@@ -1,0 +1,14 @@
+{
+  "name": "com.tityx.state-machine",
+  "version": "1.0.0",
+  "displayName": "State Machine",
+  "description": "Basic state machine template",
+  "documentationUrl": "https://example.com/",
+  "changelogUrl": "https://example.com/changelog.html",
+  "licensesUrl": "https://example.com/licensing.html",
+  "author": {
+    "name": "Tityx",
+    "email": "syhodyb99@gmail.com",
+    "url": "https://github.com/Tityxx"
+  }
+}
