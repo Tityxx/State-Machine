@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Tityx.StateMachine
+namespace Tityx.StateMachineSystem
 {
     public class TimeFromEnterInStatePredicate : IPredicate
     {

@@ -1,4 +1,4 @@
-﻿namespace Tityx.StateMachine
+﻿namespace Tityx.StateMachineSystem
 {
     public class Transition : ITransition
     {
