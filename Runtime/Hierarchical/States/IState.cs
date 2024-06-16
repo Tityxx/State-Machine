@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Tityx.StateMachineSystem
+namespace Tityx.StateMachineSystem.Hierarchical
 {
     public interface IState
     {

@@ -1,8 +1,8 @@
 {
   "name": "com.tityx.state-machine",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "displayName": "State Machine",
-  "description": "Basic state machine template",
+  "description": "Final and hierarchical state machine",
   "documentationUrl": "https://example.com/",
   "changelogUrl": "https://example.com/changelog.html",
   "licensesUrl": "https://example.com/licensing.html",

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Tityx.StateMachineSystem
+namespace Tityx.StateMachineSystem.Hierarchical
 {
-    public abstract class State : IState
+    public class State : IState
     {
         protected class Node
         {
@@ -34,33 +34,35 @@ namespace Tityx.StateMachineSystem
         public virtual void Enter()
         {
             _enterTime = Time.time;
-            _currNode.State?.Enter();
+            _currNode?.State.Enter();
         }
 
         public virtual void Exit()
         {
-            _currNode.State?.Exit();
+            _currNode?.State.Exit();
         }
+
         public virtual void Update()
         {
-            _currNode.State?.Update();
+            _currNode?.State.Update();
 
             var transition = GetTransition();
-            if (transition != null)
+            if (transition != null && transition.To != null)
             {
                 ChangeState(transition.To);
                 return;
             }
         }
+
         public virtual void FixedUpdate()
         {
-            _currNode.State?.FixedUpdate();
+            _currNode?.State.FixedUpdate();
         }
 
         public void SetState(IState state)
         {
-            _currNode = _nodes[state.GetType()];
-            _currNode.State?.Enter();
+            _currNode = GetNode(state);
+            _currNode.State.Enter();
         }
 
         public void AddTransition(IState from, IState to, IPredicate condition)
@@ -73,6 +75,16 @@ namespace Tityx.StateMachineSystem
             _anyTransitions.Add(new Transition(GetNode(to).State, condition));
         }
 
+        public void ChangeState(IState state)
+        {
+            if (_currNode.State == state)
+                return;
+
+            _currNode.State?.Exit();
+            _currNode = GetNode(state);
+            _currNode.State?.Enter();
+        }
+
         protected ITransition GetTransition()
         {
             foreach (var t in _anyTransitions)
@@ -81,23 +93,16 @@ namespace Tityx.StateMachineSystem
                     return t;
             }
 
-            foreach (var t in _currNode.Transitions)
+            if (_currNode != null)
             {
-                if (t.Condition.Evaluate())
-                    return t;
+                foreach (var t in _currNode.Transitions)
+                {
+                    if (t.Condition.Evaluate())
+                        return t;
+                }
             }
 
             return null;
-        }
-
-        protected void ChangeState(IState state)
-        {
-            if (_currNode.State == state)
-                return;
-
-            _currNode.State?.Exit();
-            _currNode = _nodes[state.GetType()];
-            _currNode.State?.Enter();
         }
 
         protected Node GetNode(IState state)

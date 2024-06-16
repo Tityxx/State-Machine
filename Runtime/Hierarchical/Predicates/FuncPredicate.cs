@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Tityx.StateMachineSystem
+namespace Tityx.StateMachineSystem.Hierarchical
 {
     public class FuncPredicate : IPredicate
     {
